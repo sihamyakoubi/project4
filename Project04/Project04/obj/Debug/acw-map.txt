@@ -1,0 +1,4 @@
+Project04.MainActivity, Project04;md5071cdf762a23c28cc7045b79e27ea396.MainActivity
+Project04.MainActivity, Project04, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5071cdf762a23c28cc7045b79e27ea396.MainActivity
+Project04.MainActivity;md5071cdf762a23c28cc7045b79e27ea396.MainActivity
+project04.MainActivity;md5071cdf762a23c28cc7045b79e27ea396.MainActivity
