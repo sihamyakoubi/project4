@@ -23,11 +23,9 @@ namespace Project04
             // Get our button from the layout resource,
             // and attach an event to it
             Button button = FindViewById<Button>(Resource.Id.MyButton);
-            Button button2 = FindViewById<Button>(Resource.Id.MyButton2);
             
-
-            button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
-            button.Click += delegate { button2.Visibility = Android.Views.ViewStates.Invisible; };
+            
+            button.Click += delegate { button.Visibility = Android.Views.ViewStates.Invisible; };
         }
     } 
 }

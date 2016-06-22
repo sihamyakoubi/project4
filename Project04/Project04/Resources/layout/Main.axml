@@ -7,10 +7,10 @@
         android:id="@+id/MyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Hello" />
-    <Button
-        android:text="Click"
+        android:text="Get started" />
+    <ImageView
+        android:src="@android:drawable/ic_menu_gallery"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/MyButton2" />
+        android:layout_height="387.5dp"
+        android:id="@+id/imageView1" />
 </LinearLayout>
