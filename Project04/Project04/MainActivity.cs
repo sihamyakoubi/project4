@@ -15,7 +15,7 @@ namespace Project04
     {
        protected override void OnCreate(Bundle bundle)
         {
-            fietstrommel fietstrommel = new fietstrommel();
+            load();
             base.OnCreate(bundle);
             
             // Set our view from the "main" layout resource
@@ -38,9 +38,15 @@ namespace Project04
 
             //button.Visibility = Android.Views.ViewStates.Invisible;
         }
+        public static void load()
+        {
+            fietstrommel fietstrommel = new fietstrommel();
+        }
+
     }
     class fietstrommel
     {
+
         public static List<string> fietsnummer = new List<string>();
         public static List<string> FT = new List<string>();
         public static List<string> Fietstrommel = new List<string>();
@@ -56,7 +62,7 @@ namespace Project04
         {
 
 
-            var reader = new StreamReader(File.OpenRead(@"drawable\fietstrommel.csv"));
+            var reader = new StreamReader(File.OpenRead(@"G:\Documents\GitHub\project4\Project04\Project04\bin\Debug\Content\fietstrommel"));
 
             while (!reader.EndOfStream)
             {
