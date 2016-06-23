@@ -45,10 +45,7 @@ namespace Project04
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int fietstrommel = 2130837504;
-			
-			// aapt resource value: 0x7f020001
-			public const int Icon = 2130837505;
+			public const int Icon = 2130837504;
 			
 			static Drawable()
 			{
@@ -65,6 +62,9 @@ namespace Project04
 			
 			// aapt resource value: 0x7f050000
 			public const int MyButton = 2131034112;
+			
+			// aapt resource value: 0x7f050002
+			public const int MyButton2 = 2131034114;
 			
 			// aapt resource value: 0x7f050001
 			public const int imageView1 = 2131034113;

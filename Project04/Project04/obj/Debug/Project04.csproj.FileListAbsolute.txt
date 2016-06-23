@@ -73,7 +73,6 @@ C:\Users\Wilco\Desktop\project4\Project04\Project04\obj\Debug\android\assets\Sys
 C:\Users\Wilco\Desktop\project4\Project04\Project04\obj\Debug\android\assets\System.ServiceModel.Internals.dll.mdb
 C:\Users\Wilco\Desktop\project4\Project04\Project04\obj\Debug\android\assets\System.Xml.dll.mdb
 C:\Users\Wilco\Desktop\project4\Project04\Project04\obj\Debug\android\assets\System.Xml.Linq.dll.mdb
-C:\Users\Wilco\Desktop\project4\Project04\Project04\obj\Debug\Project04.dll.mdb
 G:\Documents\GitHub\project4\Project04\Project04\bin\Debug\Project04.dll
 G:\Documents\GitHub\project4\Project04\Project04\bin\Debug\Project04.pdb
 G:\Documents\GitHub\project4\Project04\Project04\bin\Debug\Project04.Project04.apk
@@ -113,4 +112,5 @@ G:\Documents\GitHub\project4\Project04\Project04\obj\Debug\android\assets\System
 G:\Documents\GitHub\project4\Project04\Project04\obj\Debug\android\assets\System.Xml.Linq.dll.mdb
 G:\Documents\GitHub\project4\Project04\Project04\obj\Debug\res\drawable\fietstrommel.csv
 G:\Documents\GitHub\project4\Project04\Project04\obj\Debug\Project04.dll.mdb
-G:\Documents\GitHub\project4\Project04\Project04\bin\Debug\Project04.dll.mdb
+C:\Users\Wilco\Desktop\project4\Project04\Project04\obj\Debug\Project04.dll.mdb
+C:\Users\Wilco\Desktop\project4\Project04\Project04\bin\Debug\Project04.dll.mdb
