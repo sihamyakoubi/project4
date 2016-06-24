@@ -13,10 +13,14 @@ namespace Project04
     [Activity(Label = "Project04", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-       protected override void OnCreate(Bundle bundle)
+        public static Java.IO.File path;
+        protected override void OnCreate(Bundle bundle)
         {
-
+            MainActivity.path = GetDir("fietsdiefstal.csv", FileCreationMode.WorldReadable);
+            
             base.OnCreate(bundle);
+            //StreamReader x = new StreamReader(Assets.Open("fietstrommel.csv"));
+         
             
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);

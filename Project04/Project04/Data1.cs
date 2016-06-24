@@ -10,10 +10,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.IO;
+using Java.IO;
 
 namespace Project04
 {
-    class Data1
+    class Data1 : Activity
     {
         public static List<string> fietsnummer = new List<string>();
         public static List<string> FT = new List<string>();
@@ -27,9 +28,18 @@ namespace Project04
         public static List<string> datum = new List<string>();
         public Data1()
         {
-            string path = @"drawable/fietstrommel";
-            var reader = new StreamReader(File.OpenRead(path));
+            
+            //String path1 = path.ToString();
 
+            //string p = Directory.GetCurrentDirectory();
+            // p3 = Path.GetDirectoryName(Application.);
+            //string p2 = @"c:\Users\Wilco\Desktop\project4\Project04\Project04\fietstrommel.csv";
+            //string p3 = "fietstrommel.csv";
+
+
+
+           var reader = new StreamReader(Assets.Open("fietstrommel.csv"));
+            
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();

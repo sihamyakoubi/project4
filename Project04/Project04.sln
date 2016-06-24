@@ -5,11 +5,6 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project04", "Project04\Project04.csproj", "{3CB22E8A-B5B8-4405-9A06-74D8E2DC3E26}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Content", "Content", "{F898A087-539B-47C2-A14C-19E1BCCA05B5}"
-	ProjectSection(SolutionItems) = preProject
-		Project04\bin\Debug\Content\fietstrommel.csv = Project04\bin\Debug\Content\fietstrommel.csv
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
