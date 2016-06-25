@@ -1,9 +1,10 @@
 package com.project4.wilco.project4;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener{
     Button button;
     TextView object;
+    public static Context context;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +26,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     @Override
 
     public void onClick(View v) {
-        String SQL = "SELECT f.staat FROM fietstrommel f WHERE f.inventarisatienr = 'FT10'; ";
-        ResultSet test = Query.returnrs(SQL,"1234");
-        object.setText((CharSequence) test);
+        ContextGet get = new ContextGet();
+        SQLite mDbHelper = new SQLite(MainActivity.context);
+
     }
 }
