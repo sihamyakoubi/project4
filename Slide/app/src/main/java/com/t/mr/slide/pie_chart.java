@@ -1,4 +1,4 @@
-package com.t.mr.charts;
+package com.t.mr.slide;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -19,36 +19,31 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
+public class pie_chart extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
-
-    private RelativeLayout mainLayout;
+    private RelativeLayout drawer_layout;
     private PieChart mChart;
 
-    private float[] yData = { 20, 20, 20, 20, 20 };
-    private String[] xData = { "Ik", "wil", "naar", "huis", "lol" };
+    private float[] yData = { 20, 50, 10, 10, 10 };
+    private String[] xData = { "Tareq", "Wilco", "Siham", "Zina", "LOL?" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+        setContentView(R.layout.activity_pie_chart);
+        drawer_layout = (RelativeLayout) findViewById(R.id.drawer_layout);
         mChart = new PieChart(this);
 
-        mainLayout.addView(mChart);
-        mainLayout.setBackgroundColor(Color.LTGRAY);
+        drawer_layout.addView(mChart);
+        drawer_layout.setBackgroundColor(Color.LTGRAY);
 
         mChart.setUsePercentValues(true);
-        mChart.setDescription("u suck again!");
+        mChart.setDescription("Rotterdam Open Data");
 
         mChart.setDrawHoleEnabled(true);
-        //mChart.setHoleColorTransparent(true);
+
         mChart.setHoleRadius(7);
-        mChart.setTransparentCircleRadius(10);
-
-        mChart.setRotationAngle(0);
         mChart.setRotationEnabled(true);
-
 
         ViewGroup.LayoutParams params = mChart.getLayoutParams();
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -59,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
                 if (e == null)
                     return;
-                Toast.makeText(MainActivity.this,
-                        xData[e.getXIndex()] + " = " + e.getVal() + "%",
+                Toast.makeText(pie_chart.this,
+                        xData[e.getXIndex()] + " = "  + e.getVal() + "%",
                         Toast.LENGTH_SHORT) .show();
             }
 
@@ -70,14 +65,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         addData();
 
         Legend l = mChart.getLegend();
         l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
-
     }
 
     private void addData() {
@@ -91,11 +84,12 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < xData.length; i++)
             xVals.add(xData[i]);
 
-        PieDataSet dataSet = new PieDataSet(yValsl, "u suck");
+        PieDataSet dataSet = new PieDataSet(yValsl, "Rotterdam Open Data");
         dataSet.setSliceSpace(3);
         dataSet.setSelectionShift(5);
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
+
 
         for (int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
@@ -108,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             colors.add(c);
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
+
 
         colors.add(ColorTemplate.getHoloBlue());
         dataSet.setColors(colors);
@@ -123,6 +118,10 @@ public class MainActivity extends AppCompatActivity {
 
         mChart.invalidate();
 
-
     }
+
+
+
+
+
 }
