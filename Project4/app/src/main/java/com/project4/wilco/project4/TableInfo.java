@@ -6,14 +6,14 @@ import android.provider.BaseColumns;
 /**
  * Created by Wilco on 24-6-2016.
  */
-public final class FeedReaderContract {
+public final class TableInfo {
         private Context context;
         // To prevent someone from accidentally instantiating the contract class,
         // give it an empty constructor.
-        public FeedReaderContract() {
+        public TableInfo() {
 
         }
-    public FeedReaderContract(Context context){
+    public TableInfo(Context context){
         this.context = context;
     }
 
