@@ -103,14 +103,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_pie_chart:
                 menuItem.setChecked(true);
                 textView1.setText(menuItem.getTitle());
-                String SQL = "SELECT TOP(5) Werkgebied, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Werkgebied;";
+                String SQL = "SELECT TOP (5) Merk, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Merk;";
                 Query_2 quer = new Query_2();
                 ResultSet res = quer.getQueryResult(SQL);
                 try {
-                    res.next();
-                    button.setText(res.getString("counter"));
-
-
+                    while(res.next()) {
+                        button.setText(res.getString("counter"));
+                        pie_chart.xData1.add(res.getString("Merk"));
+                        pie_chart.yData1.add(res.getFloat("counter"));
+                    }
                 }catch(Exception e){
                     e.printStackTrace();
 

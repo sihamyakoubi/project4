@@ -17,6 +17,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class pie_chart extends AppCompatActivity {
@@ -24,8 +25,12 @@ public class pie_chart extends AppCompatActivity {
     private RelativeLayout drawer_layout;
     private PieChart mChart;
 
-    private float[] yData = { 20, 50, 10, 10, 10 };
-    public static String[] xData = { "Tareq", "Wilco", "Siham", "Zina", "LOL?" };
+    public static float[] yData = { 20, 50, 10, 10, 10 };
+    public static String[] xData = { "Tareq", "Wilco", "Zina", "Siham", "LOL?" };
+    public static ArrayList<Float> yData1 = new ArrayList<>();
+    public static ArrayList<String> xData1 = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +57,12 @@ public class pie_chart extends AppCompatActivity {
         mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                if (e == null)
-                    return;
-                Toast.makeText(pie_chart.this,
-                        xData[e.getXIndex()] + " = "  + e.getVal() + "%",
-                        Toast.LENGTH_SHORT) .show();
+                //if (e == null)
+                //    return;
+                //Toast.makeText(pie_chart.this,
+                //        xData1.get(e.getXIndex()) + " = " + ((int) e.getVal()),
+                //        //xData[e.getXIndex()] + " = "  + e.getVal() + "%",
+                 //       Toast.LENGTH_SHORT) .show();
             }
 
             @Override
@@ -76,13 +82,13 @@ public class pie_chart extends AppCompatActivity {
     private void addData() {
         ArrayList<Entry> yValsl = new ArrayList<Entry>();
 
-        for (int i = 0; i < yData.length; i++)
-            yValsl.add(new Entry(yData[i], i));
+        for (int i = 0; i < xData1.size(); i++)
+            yValsl.add(new Entry(yData1.get(i) , i));
 
         ArrayList<String> xVals = new ArrayList<String>();
 
-        for (int i = 0; i < xData.length; i++)
-            xVals.add(xData[i]);
+        for (int i = 0; i < yData1.size(); i++)
+            xVals.add(xData1.get(i));
 
         PieDataSet dataSet = new PieDataSet(yValsl, "Rotterdam Open Data");
         dataSet.setSliceSpace(3);
@@ -108,8 +114,10 @@ public class pie_chart extends AppCompatActivity {
 
         PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(11f);
+        data.setValueTextSize(10f);
         data.setValueTextColor(Color.GRAY);
+        pie_chart.xData1 = new ArrayList<String>();
+        pie_chart.yData1 = new ArrayList<Float>();
 
         mChart.setData(data);
 
