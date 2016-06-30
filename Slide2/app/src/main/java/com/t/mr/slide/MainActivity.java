@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String SQL = "SELECT TOP (5) Kleur, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Kleur;";
+                String SQL = "SELECT TOP (5) Kleur, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Kleur ORDER BY COUNT(*) DESC;";
                 Query_2 quer = new Query_2();
                 ResultSet res = quer.getQueryResult(SQL);
                 try {
@@ -168,8 +168,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 //    e.printStackTrace();
                 //
                 //  }
-                Intent intent = new Intent(MainActivity.this, pie_chart.class);
-                startActivity(intent);
+                //Intent intent = new Intent(MainActivity.this, pie_chart.class);
+                //startActivity(intent);
                 return true;
             case R.id.nav_line_chart:
                 menuItem.setChecked(true);
