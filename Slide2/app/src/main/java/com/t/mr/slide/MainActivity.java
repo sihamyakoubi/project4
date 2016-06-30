@@ -16,15 +16,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import net.sourceforge.jtds.jdbc.*;
+
+import org.w3c.dom.Text;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-    Button button;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    public static Button button;
+    public static Button button2;
+    public static TextView textView;
     TextView object;
     public void enableStrictMode()
     {        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -39,8 +45,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         this.button = (Button) findViewById(R.id.button);
-        this.object = (TextView) findViewById(R.id.textView);
-        this.button.setOnClickListener(MainActivity.this);
+        this.button2 = (Button) findViewById(R.id.button2);
+        this.textView = (TextView) findViewById(R.id.textView2);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +65,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String SQL = "SELECT TOP (5) Merk, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Merk;";
+                Query_2 quer = new Query_2();
+                ResultSet res = quer.getQueryResult(SQL);
+                try {
+                    while(res.next()) {
+                        pie_chart.xData1.add(res.getString("Merk"));
+                        pie_chart.yData1.add(res.getFloat("counter"));
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+
+                }
+                Intent intent = new Intent(MainActivity.this, pie_chart.class);
+                startActivity(intent);
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String SQL = "SELECT TOP (5) Kleur, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Kleur;";
+                Query_2 quer = new Query_2();
+                ResultSet res = quer.getQueryResult(SQL);
+                try {
+                    while(res.next()) {
+                        pie_chart.xData1.add(res.getString("Kleur"));
+                        pie_chart.yData1.add(res.getFloat("counter"));
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+
+                }
+                Intent intent = new Intent(MainActivity.this, pie_chart.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -96,26 +143,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         TextView textView1 = (TextView) findViewById(R.id.textView);
+
         switch (menuItem.getItemId()) {
 
 
             // Handle navigation view item clicks here.
             case R.id.nav_pie_chart:
+
                 menuItem.setChecked(true);
                 textView1.setText(menuItem.getTitle());
-                String SQL = "SELECT TOP (5) Merk, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Merk;";
-                Query_2 quer = new Query_2();
-                ResultSet res = quer.getQueryResult(SQL);
-                try {
-                    while(res.next()) {
-                        button.setText(res.getString("counter"));
-                        pie_chart.xData1.add(res.getString("Merk"));
-                        pie_chart.yData1.add(res.getFloat("counter"));
-                    }
-                }catch(Exception e){
-                    e.printStackTrace();
-
-                }
+                button.setVisibility(View.VISIBLE);
+                button2.setVisibility(View.VISIBLE);
+                textView.setVisibility(View.VISIBLE);
+                //String SQL = "SELECT TOP (5) Merk, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Merk;";
+                //Query_2 quer = new Query_2();
+                //ResultSet res = quer.getQueryResult(SQL);
+                //try {
+                //    while(res.next()) {
+                //        button.setText(res.getString("counter"));
+                //        pie_chart.xData1.add(res.getString("Merk"));
+                //        pie_chart.yData1.add(res.getFloat("counter"));
+                //    }
+                //}catch(Exception e){
+                //    e.printStackTrace();
+                //
+                //  }
                 Intent intent = new Intent(MainActivity.this, pie_chart.class);
                 startActivity(intent);
                 return true;
@@ -131,19 +183,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void onClick(View v) {
-        String SQL = "SELECT Werkgebied, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Werkgebied;";
-        Query_2 quer = new Query_2();
-        ResultSet res = quer.getQueryResult(SQL);
-        ArrayList<Integer> result = new ArrayList<Integer>();
-        try {
-            res.next();
-            button.setText(res.getString("counter"));
 
 
-            }catch(Exception e){
-                e.printStackTrace();
 
-        }
-    }
+
 }

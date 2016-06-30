@@ -3,6 +3,7 @@ package com.t.mr.slide;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -96,7 +97,6 @@ public class pie_chart extends AppCompatActivity {
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
 
-
         for (int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
         for (int c : ColorTemplate.JOYFUL_COLORS)
@@ -108,27 +108,19 @@ public class pie_chart extends AppCompatActivity {
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
 
-
         colors.add(ColorTemplate.getHoloBlue());
         dataSet.setColors(colors);
-
         PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(10f);
         data.setValueTextColor(Color.GRAY);
         pie_chart.xData1 = new ArrayList<String>();
         pie_chart.yData1 = new ArrayList<Float>();
-
+        MainActivity.button2.setVisibility(View.INVISIBLE);
+        MainActivity.button.setVisibility(View.INVISIBLE);
+        MainActivity.textView.setVisibility(View.INVISIBLE);
         mChart.setData(data);
-
         mChart.highlightValue(null);
-
         mChart.invalidate();
-
     }
-
-
-
-
-
 }
