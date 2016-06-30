@@ -2,6 +2,7 @@ package com.t.mr.slide;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -23,12 +24,16 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-
     Button button;
     TextView object;
+    public void enableStrictMode()
+    {        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
+        StrictMode.setThreadPolicy(policy);}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        enableStrictMode();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -98,6 +103,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_pie_chart:
                 menuItem.setChecked(true);
                 textView1.setText(menuItem.getTitle());
+                String SQL = "SELECT TOP(5) Werkgebied, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Werkgebied;";
+                Query_2 quer = new Query_2();
+                ResultSet res = quer.getQueryResult(SQL);
+                try {
+                    res.next();
+                    button.setText(res.getString("counter"));
+
+
+                }catch(Exception e){
+                    e.printStackTrace();
+
+                }
                 Intent intent = new Intent(MainActivity.this, pie_chart.class);
                 startActivity(intent);
                 return true;
@@ -114,21 +131,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void onClick(View v) {
-        String tareq = "";
-        String SQL = "SELECT COUNT(*) FROM [dbo].[fietsdiefstal];";
+        String SQL = "SELECT Werkgebied, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Werkgebied;";
         Query_2 quer = new Query_2();
         ResultSet res = quer.getQueryResult(SQL);
         ArrayList<Integer> result = new ArrayList<Integer>();
-        int cnt = 0;
-        try{
-            button.setText(res.getString(0));
-        } catch(SQLException e){
-            e.printStackTrace();
-        }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        button.setText(result.get(0));
+        try {
+            res.next();
+            button.setText(res.getString("counter"));
 
+
+            }catch(Exception e){
+                e.printStackTrace();
+
+        }
     }
 }

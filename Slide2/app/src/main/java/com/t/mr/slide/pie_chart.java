@@ -25,7 +25,7 @@ public class pie_chart extends AppCompatActivity {
     private PieChart mChart;
 
     private float[] yData = { 20, 50, 10, 10, 10 };
-    private String[] xData = { "Tareq", "Wilco", "Siham", "Zina", "LOL?" };
+    public static String[] xData = { "Tareq", "Wilco", "Siham", "Zina", "LOL?" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

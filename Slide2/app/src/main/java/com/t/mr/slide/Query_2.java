@@ -14,18 +14,21 @@ import net.sourceforge.jtds.jdbc.*;
 public class Query_2 extends AppCompatActivity {
 
         public ResultSet getQueryResult(String SQL){
-            String connectionString = "jdbc:sqlserver://project4.database.windows.net:1433;database=project4;user=wilco@project4;password=123project!;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+            String connectionString = "jdbc:jtds:sqlserver://project4.database.windows.net/project4;user=wilco;password=123project!;";
+            ResultSet result = null;
             try {
 
-                Class.forName("net.sourceforge.jtds.jdbc.Driver");
+                Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
                 Connection DbConn = DriverManager.getConnection(connectionString);
                 Statement stmt = DbConn.createStatement();
-                ResultSet result = stmt.executeQuery(SQL);
-                return result;
+                result = stmt.executeQuery(SQL);
+                String x = "";
+                ResultSet resu = result;
+                return resu;
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
-            return null;
+            return result;
         }
     }
