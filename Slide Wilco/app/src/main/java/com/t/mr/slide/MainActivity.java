@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 np2.setVisibility(View.INVISIBLE);
                 buttonLine.setVisibility(View.INVISIBLE);
                 return true;
+
             case R.id.nav_line_chart:
                 menuItem.setChecked(true);
                 textViewLine2.setVisibility(View.VISIBLE);
@@ -191,6 +192,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 button.setVisibility(View.INVISIBLE);
                 button2.setVisibility(View.INVISIBLE);
                 textView.setVisibility(View.INVISIBLE);
+                return true;
+
+            case R.id.nav_bar_chart:
+                Intent intent = new Intent(MainActivity.this, bar_chart.class);
+                startActivity(intent);
                 return true;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
