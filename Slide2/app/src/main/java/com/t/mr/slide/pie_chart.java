@@ -116,9 +116,7 @@ public class pie_chart extends AppCompatActivity {
         data.setValueTextColor(Color.GRAY);
         pie_chart.xData1 = new ArrayList<String>();
         pie_chart.yData1 = new ArrayList<Float>();
-        MainActivity.button2.setVisibility(View.INVISIBLE);
-        MainActivity.button.setVisibility(View.INVISIBLE);
-        MainActivity.textView.setVisibility(View.INVISIBLE);
+
         mChart.setData(data);
         mChart.highlightValue(null);
         mChart.invalidate();
