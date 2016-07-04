@@ -51,9 +51,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static TextView textBar1;
     public static TextView textBar2;
     public static Spinner spinner;
-    public static TextView textLocation1;
-    public static TextView textLocation2;
     public static Button buttonLocation1;
+    public static Button buttonLocation2;
     private Location mLastLocation;
     com.google.android.gms.common.api.GoogleApiClient mGoogleApiClient;
     public LocationManager mLocationManager;
@@ -92,9 +91,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.textBar1 = (TextView) findViewById(R.id.textView3);
         this.textBar2 = (TextView) findViewById(R.id.textView5);
         this.spinner = (Spinner) findViewById(R.id.spinner);
-        this.textLocation1 = (TextView) findViewById(R.id.textView6);
-        this.textLocation2 = (TextView) findViewById(R.id.textView7);
         this.buttonLocation1 = (Button) findViewById(R.id.button6);
+        this.buttonLocation2 = (Button) findViewById(R.id.button7);
         np2.setMaxValue(2013); np2.setMinValue(2010); np2.setValue(2010);
         String SQL = "Select DISTINCT fietsdiefstal.Buurt, fietstrommel.Deelgem as buur FROM fietstrommel, fietsdiefstal WHERE fietstrommel.Deelgem = fietsdiefstal.Buurt";
         Query_2 querry = new Query_2();
@@ -105,14 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, buurt);
         spinner.setAdapter(adapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -238,9 +229,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                         mGoogleApiClient);
                 if (mLastLocation != null) {
-                    textLocation1.setText(String.valueOf(mLastLocation.getLatitude()));
-                    textLocation2.setText(String.valueOf(mLastLocation.getLongitude()));
                 }
+
+
+                Locate.getAddressFromLocation(mLastLocation.getLatitude(),mLastLocation.getLongitude(),MainActivity.this);
+                try{
+                    Thread.sleep(500);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                Locate.saveLocation(Locate.result);
+            }
+        });
+        buttonLocation2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Locate.deleteLocation();
             }
         });
     }
@@ -259,8 +263,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null) {
-            textLocation1.setText(String.valueOf(mLastLocation.getLatitude()));
-            textLocation2.setText(String.valueOf(mLastLocation.getLongitude()));
         }
     }
 
@@ -327,6 +329,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonBar1.setVisibility(View.INVISIBLE);
                 buttonBar2.setVisibility(View.INVISIBLE);
                 spinner.setVisibility(View.INVISIBLE);
+                buttonLocation1.setVisibility(View.INVISIBLE);
+                buttonLocation2.setVisibility(View.INVISIBLE);
                 return true;
 
             case R.id.nav_line_chart:
@@ -343,6 +347,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 button2.setVisibility(View.INVISIBLE);
                 textView.setVisibility(View.INVISIBLE);
                 spinner.setVisibility(View.INVISIBLE);
+                buttonLocation1.setVisibility(View.INVISIBLE);
+                buttonLocation2.setVisibility(View.INVISIBLE);
                 return true;
 
             case R.id.nav_bar_chart:
@@ -358,6 +364,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 textViewLine2.setVisibility(View.INVISIBLE);
                 np2.setVisibility(View.INVISIBLE);
                 buttonLine.setVisibility(View.INVISIBLE);
+                buttonLocation1.setVisibility(View.INVISIBLE);
+                buttonLocation2.setVisibility(View.INVISIBLE);
 
 
 
@@ -373,8 +381,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //code
             System.out.println("onLocationChanged");
             mLastLocation = location;
-            textLocation1.setText(mLastLocation.getLatitude() + "");
-            textLocation2.setText(mLastLocation.getLongitude() + "");
             // mainLabel.setText("Latitude:" + String.valueOf(location.getLatitude()) + "\n" + "Longitude:" + String.valueOf(location.getLongitude()));
         }
         @Override
