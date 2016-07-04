@@ -27,16 +27,12 @@ import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
-
 import net.sourceforge.jtds.jdbc.*;
-
 import org.w3c.dom.Text;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -265,7 +261,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-
     public void onAddEventClicked(View view){
         Intent intent = new Intent(Intent.ACTION_INSERT);
         intent.setType("vnd.android.cursor.item/event");
@@ -278,16 +273,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,endTime);
         intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
 
-        intent.putExtra(CalendarContract.Events.TITLE, "Neel Birthday");
-        intent.putExtra(CalendarContract.Events.DESCRIPTION,  "This is a sample description");
-        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, "My Guest House");
+        intent.putExtra(CalendarContract.Events.TITLE, "Gestolen fiets");
+        intent.putExtra(CalendarContract.Events.DESCRIPTION,  "Description");
+        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, "My location");
         intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
 
         startActivity(intent);
     }
-
-
-
 
     protected void onStart() {
         mGoogleApiClient.connect();
@@ -345,17 +337,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         TextView textView1 = (TextView) findViewById(R.id.textView);
 
         switch (menuItem.getItemId()) {
-
 
             // Handle navigation view item clicks here.
             case R.id.nav_pie_chart:
@@ -409,15 +398,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonLocation1.setVisibility(View.INVISIBLE);
                 buttonLocation2.setVisibility(View.INVISIBLE);
                 webView.setVisibility(View.INVISIBLE);
-
-
-
                 return true;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     private final android.location.LocationListener mLocationListener = new android.location.LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
