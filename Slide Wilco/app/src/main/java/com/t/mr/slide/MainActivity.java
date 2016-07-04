@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -19,8 +20,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,6 +40,7 @@ import org.w3c.dom.Text;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
@@ -56,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Location mLastLocation;
     com.google.android.gms.common.api.GoogleApiClient mGoogleApiClient;
     public LocationManager mLocationManager;
+    public static WebView webView;
+    public static ImageButton imageButton;
 
     public static ArrayList<Integer> intList = new ArrayList<Integer>();
     public static ArrayList<Integer> intListRec = new ArrayList<Integer>();
@@ -70,6 +76,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String url ="http://rotterdamopendata.nl/dataset";
+        WebView view=(WebView) this.findViewById(R.id.webView);
+        view.getSettings().setJavaScriptEnabled(true);
+        view.loadUrl(url);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -80,6 +92,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .addApi(LocationServices.API)
                     .build();
         }
+
+        this.webView = (WebView) findViewById(R.id.webView);
         this.button = (Button) findViewById(R.id.button);
         this.button2 = (Button) findViewById(R.id.button2);
         this.textView = (TextView) findViewById(R.id.textView2);
@@ -93,6 +107,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.spinner = (Spinner) findViewById(R.id.spinner);
         this.buttonLocation1 = (Button) findViewById(R.id.button6);
         this.buttonLocation2 = (Button) findViewById(R.id.button7);
+        this.imageButton = (ImageButton) findViewById(R.id.imageButton);
+
         np2.setMaxValue(2013); np2.setMinValue(2010); np2.setValue(2010);
         String SQL = "Select DISTINCT fietsdiefstal.Buurt, fietstrommel.Deelgem as buur FROM fietstrommel, fietsdiefstal WHERE fietstrommel.Deelgem = fietsdiefstal.Buurt";
         Query_2 querry = new Query_2();
@@ -248,6 +264,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
+
+    public void onAddEventClicked(View view){
+        Intent intent = new Intent(Intent.ACTION_INSERT);
+        intent.setType("vnd.android.cursor.item/event");
+
+        Calendar cal = Calendar.getInstance();
+        long startTime = cal.getTimeInMillis();
+        long endTime = cal.getTimeInMillis()  + 60 * 60 * 1000;
+
+        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime);
+        intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,endTime);
+        intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+
+        intent.putExtra(CalendarContract.Events.TITLE, "Neel Birthday");
+        intent.putExtra(CalendarContract.Events.DESCRIPTION,  "This is a sample description");
+        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, "My Guest House");
+        intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
+
+        startActivity(intent);
+    }
+
+
+
+
     protected void onStart() {
         mGoogleApiClient.connect();
         super.onStart();
@@ -349,6 +390,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 spinner.setVisibility(View.INVISIBLE);
                 buttonLocation1.setVisibility(View.INVISIBLE);
                 buttonLocation2.setVisibility(View.INVISIBLE);
+                webView.setVisibility(View.INVISIBLE);
                 return true;
 
             case R.id.nav_bar_chart:
@@ -366,6 +408,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonLine.setVisibility(View.INVISIBLE);
                 buttonLocation1.setVisibility(View.INVISIBLE);
                 buttonLocation2.setVisibility(View.INVISIBLE);
+                webView.setVisibility(View.INVISIBLE);
 
 
 
