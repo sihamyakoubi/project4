@@ -13,6 +13,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class bar_chart extends AppCompatActivity {
     protected RelativeLayout drawer_layout;
     private BarChart mChart;
 
+    public static ArrayList<Float> floats = new ArrayList<>();
+    public static ArrayList<String> strings = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,40 +38,30 @@ public class bar_chart extends AppCompatActivity {
         ViewGroup.LayoutParams params = mChart.getLayoutParams();
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-
+        int x = -1;
         ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(4f, 0));
-        entries.add(new BarEntry(8f, 1));
-        entries.add(new BarEntry(6f, 2));
-        entries.add(new BarEntry(12f, 3));
-        entries.add(new BarEntry(18f, 4));
-        entries.add(new BarEntry(9f, 5));
+        for(Float o : floats){
+            x = x + 1;
+            entries.add(new BarEntry(o, x));
+        }
 
-        BarDataSet dataset = new BarDataSet(entries, "# of Calls");
+        BarDataSet dataset = new BarDataSet(entries, "Bar Chart");
 
-        ArrayList<String> labels = new ArrayList<String>();
-        labels.add("January");
-        labels.add("February");
-        labels.add("March");
-        labels.add("April");
-        labels.add("May");
-        labels.add("June");
-
-
-
+        ArrayList<String> labels = new ArrayList<>();
+        for(String o : strings){
+            labels.add(o);
+        }
 
         BarData data = new BarData(labels, dataset);
         mChart.setData(data);
+        mChart.setDescription("Bar Chart");
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.BLUE);
+        colors.add(Color.RED);
+        dataset.setColors(colors);
+        floats.clear();
+        strings.clear();
 
-        mChart.setDescription("# of times Alice called Bob");
-
-//        ColorTemplate.LIBERTY_COLORS
-//        ColorTemplate.COLORFUL_COLORS
-//        ColorTemplate.JOYFUL_COLORS
-//        ColorTemplate.PASTEL_COLORS
-//        ColorTemplate.VORDIPLOM_COLORS
-
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS);
 
         mChart.animateY(5000);
 

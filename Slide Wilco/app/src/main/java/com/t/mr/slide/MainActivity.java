@@ -1,10 +1,15 @@
 package com.t.mr.slide;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,10 +19,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationServices;
 
 import net.sourceforge.jtds.jdbc.*;
 
@@ -28,13 +39,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
     public static Button button;
     public static Button button2;
     public static TextView textView;
     public static TextView textViewLine2;
     public static NumberPicker np2;
     public static Button buttonLine;
+    public static Button buttonBar1;
+    public static Button buttonBar2;
+    public static TextView textBar1;
+    public static TextView textBar2;
+    public static Spinner spinner;
+    public static TextView textLocation1;
+    public static TextView textLocation2;
+    public static Button buttonLocation1;
+    private Location mLastLocation;
+    com.google.android.gms.common.api.GoogleApiClient mGoogleApiClient;
+    public LocationManager mLocationManager;
+
     public static ArrayList<Integer> intList = new ArrayList<Integer>();
     public static ArrayList<Integer> intListRec = new ArrayList<Integer>();
 
@@ -50,13 +73,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
         this.button = (Button) findViewById(R.id.button);
         this.button2 = (Button) findViewById(R.id.button2);
         this.textView = (TextView) findViewById(R.id.textView2);
         this.textViewLine2 = (TextView) findViewById(R.id.textView4);
         this.np2 = (NumberPicker) findViewById(R.id.numberPicker2);
         this.buttonLine = (Button) findViewById(R.id.button3);
+        this.buttonBar1 = (Button) findViewById(R.id.button4);
+        this.buttonBar2 = (Button) findViewById(R.id.button5);
+        this.textBar1 = (TextView) findViewById(R.id.textView3);
+        this.textBar2 = (TextView) findViewById(R.id.textView5);
+        this.spinner = (Spinner) findViewById(R.id.spinner);
+        this.textLocation1 = (TextView) findViewById(R.id.textView6);
+        this.textLocation2 = (TextView) findViewById(R.id.textView7);
+        this.buttonLocation1 = (Button) findViewById(R.id.button6);
         np2.setMaxValue(2013); np2.setMinValue(2010); np2.setValue(2010);
+        String SQL = "Select DISTINCT fietsdiefstal.Buurt, fietstrommel.Deelgem as buur FROM fietstrommel, fietsdiefstal WHERE fietstrommel.Deelgem = fietsdiefstal.Buurt";
+        Query_2 querry = new Query_2();
+        ResultSet res = querry.getQueryResult(SQL);
+        ArrayList<String> buurt = new ArrayList<>();
+        buurt.add("CENTRUM"); buurt.add("DELFSHAVEN"); buurt.add("FEIJENOORD"); buurt.add("OVERSCHIE"); buurt.add("PERNIS");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, buurt);
+        spinner.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +121,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        int LOCATION_REFRESH_TIME = 1000;
+        int LOCATION_REFRESH_DISTANCE = 5;
+
+        if ( Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return  ;
+        }
+
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, mLocationListener);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(MainActivity.this, pie_chart.class);
                 startActivity(intent);
             }
+
         });
         buttonLine.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         try {
                         while(res.next()) {
                             line_chart.floats.add((float)res.getInt("counter"));
-                            line_chart.strings.add("test");
+                            line_chart.strings.add("");
                         }
                     }catch(Exception e){
                         e.printStackTrace();
@@ -131,6 +191,87 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+        buttonBar1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String SQL = "SELECT TOP(5) Deelgem,COUNT(*) as counter FROM fietstrommel GROUP BY Deelgem ORDER BY COUNT(*) DESC" ;
+                Query_2 quer = new Query_2();
+                ResultSet res = quer.getQueryResult(SQL);
+                try {
+                    while(res.next()) {
+                        bar_chart.floats.add((float)res.getInt("counter"));
+                        bar_chart.strings.add(res.getString("Deelgem"));
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(MainActivity.this, bar_chart.class);
+                startActivity(intent);
+            }
+        });
+        buttonBar2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String SQL = "SELECT Deelgem,COUNT(*) as counter FROM fietstrommel WHERE Deelgem = '" + spinner.getSelectedItem() + "' GROUP BY Deelgem";
+                Query_2 quer = new Query_2();
+                ResultSet res = quer.getQueryResult(SQL);
+                String SQL2 = "SELECT Buurt,COUNT(*) as counter FROM fietsdiefstal WHERE Buurt = '" + spinner.getSelectedItem() + "' GROUP BY Buurt";
+                ResultSet res2 = quer.getQueryResult(SQL2);
+                try {while(res.next()) {
+                        bar_chart.floats.add((float)res.getInt("counter"));
+                        bar_chart.strings.add("Trommels");}
+                }catch(Exception e){
+                    e.printStackTrace();}
+                try {
+                    while (res2.next()){
+                        bar_chart.floats.add((float)res2.getInt("counter"));
+                        bar_chart.strings.add("Diefstallen");
+                    }}catch(Exception e){
+                    e.printStackTrace();}
+                Intent intent = new Intent(MainActivity.this, bar_chart.class);
+                startActivity(intent);
+            }
+        });
+        buttonLocation1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                        mGoogleApiClient);
+                if (mLastLocation != null) {
+                    textLocation1.setText(String.valueOf(mLastLocation.getLatitude()));
+                    textLocation2.setText(String.valueOf(mLastLocation.getLongitude()));
+                }
+            }
+        });
+    }
+    protected void onStart() {
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (mLastLocation != null) {
+            textLocation1.setText(String.valueOf(mLastLocation.getLatitude()));
+            textLocation2.setText(String.valueOf(mLastLocation.getLongitude()));
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
     }
 
     @Override
@@ -181,6 +322,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 textViewLine2.setVisibility(View.INVISIBLE);
                 np2.setVisibility(View.INVISIBLE);
                 buttonLine.setVisibility(View.INVISIBLE);
+                textBar1.setVisibility(View.INVISIBLE);
+                textBar2.setVisibility(View.INVISIBLE);
+                buttonBar1.setVisibility(View.INVISIBLE);
+                buttonBar2.setVisibility(View.INVISIBLE);
+                spinner.setVisibility(View.INVISIBLE);
                 return true;
 
             case R.id.nav_line_chart:
@@ -189,23 +335,61 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 np2.setVisibility(View.VISIBLE);
                 buttonLine.setVisibility(View.VISIBLE);
 
+                textBar1.setVisibility(View.INVISIBLE);
+                textBar2.setVisibility(View.INVISIBLE);
+                buttonBar1.setVisibility(View.INVISIBLE);
+                buttonBar2.setVisibility(View.INVISIBLE);
                 button.setVisibility(View.INVISIBLE);
                 button2.setVisibility(View.INVISIBLE);
                 textView.setVisibility(View.INVISIBLE);
+                spinner.setVisibility(View.INVISIBLE);
                 return true;
 
             case R.id.nav_bar_chart:
-                Intent intent = new Intent(MainActivity.this, bar_chart.class);
-                startActivity(intent);
+                textBar1.setVisibility(View.VISIBLE);
+                textBar2.setVisibility(View.VISIBLE);
+                buttonBar1.setVisibility(View.VISIBLE);
+                buttonBar2.setVisibility(View.VISIBLE);
+                spinner.setVisibility(View.VISIBLE);
+
+                button.setVisibility(View.INVISIBLE);
+                button2.setVisibility(View.INVISIBLE);
+                textView.setVisibility(View.INVISIBLE);
+                textViewLine2.setVisibility(View.INVISIBLE);
+                np2.setVisibility(View.INVISIBLE);
+                buttonLine.setVisibility(View.INVISIBLE);
+
+
+
                 return true;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-
-
+    private final android.location.LocationListener mLocationListener = new android.location.LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            //code
+            System.out.println("onLocationChanged");
+            mLastLocation = location;
+            textLocation1.setText(mLastLocation.getLatitude() + "");
+            textLocation2.setText(mLastLocation.getLongitude() + "");
+            // mainLabel.setText("Latitude:" + String.valueOf(location.getLatitude()) + "\n" + "Longitude:" + String.valueOf(location.getLongitude()));
+        }
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            System.out.println("onStatusChanged");
+        }
+        @Override
+        public void onProviderEnabled(String provider) {
+            System.out.println("onProviderEnabled");
+        }
+        @Override
+        public void onProviderDisabled(String provider) {
+            System.out.println("onProviderDisabled");
+            //turns off gps services
+        }
+    };
 
 }

@@ -57,8 +57,8 @@ public class line_chart extends AppCompatActivity {
         int s = -1;
         ArrayList<String> labels = new ArrayList<String>();
         for (String str : strings){
-            s = s + 1;
-            labels.add(strings.get(s));
+            //s = s + 1;
+            labels.add(str);
         }
 
 

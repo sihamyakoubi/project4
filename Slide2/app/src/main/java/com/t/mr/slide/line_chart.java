@@ -64,7 +64,7 @@ public class line_chart extends AppCompatActivity {
 
         LineData data = new LineData(labels, dataset);
 
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
+        dataset.setColor(Color.BLUE); //
         dataset.setDrawCubic(true);
         dataset.setDrawFilled(false);
 
