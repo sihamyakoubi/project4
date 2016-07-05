@@ -21,7 +21,8 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/textView2"
         android:textSize="30dp"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:textColor="#5f5f5f" />
 
     <Button
         android:layout_width="wrap_content"
@@ -62,36 +63,32 @@
         android:layout_above="@+id/numberPicker2"
         android:layout_alignLeft="@+id/numberPicker2"
         android:layout_alignStart="@+id/numberPicker2"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:textColor="#5f5f5f" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Linechart"
+        android:text="Per year"
         android:id="@+id/button3"
-        android:textSize="30dp"
         android:visibility="invisible"
         android:layout_below="@+id/button2"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="      Top 5      "
         android:id="@+id/button4"
-        android:textSize="25dp"
+        android:visibility="invisible"
         android:layout_below="@+id/button"
-        android:layout_alignRight="@+id/button3"
-        android:layout_alignEnd="@+id/button3"
-        android:visibility="invisible" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Per neighborhood"
         android:id="@+id/button5"
-        android:textSize="30dp"
         android:layout_above="@+id/button3"
         android:layout_centerHorizontal="true"
         android:visibility="invisible" />
@@ -102,10 +99,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Bikecontainers:"
         android:id="@+id/textView3"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:textIsSelectable="false"
+        android:textColor="#5f5f5f" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -114,10 +113,13 @@
         android:text="Stolen bikes &amp; containers:"
         android:id="@+id/textView5"
         android:textSize="25dp"
-        android:layout_below="@+id/button4"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:enabled="false"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_above="@+id/button5"
+        android:textIsSelectable="false"
+        android:textColor="#5f5f5f" />
 
     <Spinner
         android:layout_width="wrap_content"
@@ -134,9 +136,9 @@
         android:text="Save location"
         android:id="@+id/button6"
         android:textSize="12dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/button5"
-        android:layout_alignStart="@+id/button5" />
+        android:layout_alignTop="@+id/button7"
+        android:layout_toLeftOf="@+id/button3"
+        android:layout_toStartOf="@+id/button3" />
 
     <Button
         android:layout_width="wrap_content"
@@ -144,9 +146,9 @@
         android:text="Delete location"
         android:id="@+id/button7"
         android:textSize="12dp"
-        android:layout_alignTop="@+id/button6"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/button3"
+        android:layout_toEndOf="@+id/button3" />
 
     <WebView
         android:layout_width="wrap_content"
@@ -167,9 +169,9 @@
         android:src="@android:drawable/ic_menu_my_calendar"
         android:onClick="onAddEventClicked"
         android:text="Add Event"
-        android:layout_alignTop="@+id/button6"
-        android:layout_alignLeft="@+id/numberPicker2"
-        android:layout_alignStart="@+id/numberPicker2" />
+        android:layout_alignTop="@+id/button7"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -180,7 +182,8 @@
         android:textSize="30dp"
         android:visibility="invisible"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" /><![CDATA[
+        android:layout_centerHorizontal="true"
+        android:textColor="#5f5f5f" /><![CDATA[
         //android:layout_centerHorizontal="true"
 
 

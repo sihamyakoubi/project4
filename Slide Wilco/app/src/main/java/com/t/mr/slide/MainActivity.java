@@ -37,6 +37,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
     public static Button button;
     public static Button button2;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         enableStrictMode();
@@ -313,6 +315,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout nav_view = (DrawerLayout) findViewById(R.id.drawer_layout);
         switch (menuItem.getItemId()) {
             // Handle navigation view item clicks here.
+            case R.id.nav_bar_main:
+                webView.setVisibility(View.VISIBLE);
+                buttonLocation1.setVisibility(View.VISIBLE);
+                buttonLocation2.setVisibility(View.VISIBLE);
+                button.setVisibility(View.INVISIBLE);
+                button2.setVisibility(View.INVISIBLE);
+                textView.setVisibility(View.INVISIBLE);
+                textViewLine2.setVisibility(View.INVISIBLE);
+                np2.setVisibility(View.INVISIBLE);
+                buttonLine.setVisibility(View.INVISIBLE);
+                textBar1.setVisibility(View.INVISIBLE);
+                textBar2.setVisibility(View.INVISIBLE);
+                buttonBar1.setVisibility(View.INVISIBLE);
+                buttonBar2.setVisibility(View.INVISIBLE);
+                spinner.setVisibility(View.INVISIBLE);
+                nav_view.closeDrawers();
+                return true;
             case R.id.nav_pie_chart:
                 button.setVisibility(View.VISIBLE);
                 button2.setVisibility(View.VISIBLE);

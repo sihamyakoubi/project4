@@ -3,6 +3,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_bar_main"
+            android:icon="@drawable/ic_menu_charts"
+            android:title="Main menu" />
+        <item
             android:id="@+id/nav_line_chart"
             android:icon="@drawable/ic_menu_line_chart"
             android:title="Line Chart" />
@@ -14,10 +18,6 @@
             android:id="@+id/nav_pie_chart"
             android:icon="@drawable/ic_menu_pie_chart"
             android:title="Pie Chart" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
     </group>
 
 </menu>
