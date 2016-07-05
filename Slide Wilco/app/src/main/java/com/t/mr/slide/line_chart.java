@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -20,6 +21,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -52,6 +55,9 @@ public class line_chart extends AppCompatActivity {
         }
 
 
+
+
+
         LineDataSet dataset = new LineDataSet(entries, "Stolen bicycles per month (2010/01/01 - 2013/12/31");
 
         int s = -1;
@@ -60,7 +66,23 @@ public class line_chart extends AppCompatActivity {
             //s = s + 1;
             labels.add(str);
         }
+        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+                                                   @Override
+                                                   public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+                                                       if (e == null) {
+                                                           return;
+                                                       } else {
+                                                           Toast.makeText(line_chart.this,
+                                                                   strings.get(e.getXIndex()) + " = " + ((int) e.getVal()),
+                                                                   //xData[e.getXIndex()] + " = "  + e.getVal() + "%",
+                                                                   Toast.LENGTH_SHORT).show();
 
+                                                       }
+                                                   }
+                                                @Override
+                                                public void onNothingSelected() {
+                                                }
+                                               });
 
         LineData data = new LineData(labels, dataset);
 
@@ -70,8 +92,6 @@ public class line_chart extends AppCompatActivity {
 
         mChart.setData(data);
         //mChart.animateY(5000);
-        strings.clear();
-        floats.clear();
         mChart.animateY(5000);
 
         return;

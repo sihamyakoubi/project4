@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Button buttonBar2;
     public static TextView textBar1;
     public static TextView textBar2;
+    public static TextView textLine1;
     public static Spinner spinner;
     public static Button buttonLocation1;
     public static Button buttonLocation2;
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.buttonBar2 = (Button) findViewById(R.id.button5);
         this.textBar1 = (TextView) findViewById(R.id.textView3);
         this.textBar2 = (TextView) findViewById(R.id.textView5);
+        this.textLine1 = (TextView) findViewById(R.id.textView6);
         this.spinner = (Spinner) findViewById(R.id.spinner);
         this.buttonLocation1 = (Button) findViewById(R.id.button6);
         this.buttonLocation2 = (Button) findViewById(R.id.button7);
@@ -318,6 +320,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 textViewLine2.setVisibility(View.INVISIBLE);
                 np2.setVisibility(View.INVISIBLE);
                 buttonLine.setVisibility(View.INVISIBLE);
+                textLine1.setVisibility(View.INVISIBLE);
                 textBar1.setVisibility(View.INVISIBLE);
                 textBar2.setVisibility(View.INVISIBLE);
                 buttonBar1.setVisibility(View.INVISIBLE);
@@ -327,12 +330,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonLocation2.setVisibility(View.INVISIBLE);
                 webView.setVisibility(View.INVISIBLE);
                 nav_view.closeDrawers();
+                pie_chart.xData1 = new ArrayList<String>();
+                pie_chart.yData1 = new ArrayList<Float>();
                 return true;
             case R.id.nav_line_chart:
                 menuItem.setChecked(true);
                 textViewLine2.setVisibility(View.VISIBLE);
                 np2.setVisibility(View.VISIBLE);
                 buttonLine.setVisibility(View.VISIBLE);
+                textLine1.setVisibility(View.VISIBLE);
 
                 textBar1.setVisibility(View.INVISIBLE);
                 textBar2.setVisibility(View.INVISIBLE);
@@ -346,6 +352,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonLocation2.setVisibility(View.INVISIBLE);
                 webView.setVisibility(View.INVISIBLE);
                 nav_view.closeDrawers();
+                line_chart.strings = new ArrayList<String>();
+                line_chart.floats = new ArrayList<Float>();
                 return true;
             case R.id.nav_bar_chart:
                 textBar1.setVisibility(View.VISIBLE);
@@ -361,8 +369,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonLine.setVisibility(View.INVISIBLE);
                 buttonLocation1.setVisibility(View.INVISIBLE);
                 buttonLocation2.setVisibility(View.INVISIBLE);
+                textLine1.setVisibility(View.INVISIBLE);
                 webView.setVisibility(View.INVISIBLE);
                 nav_view.closeDrawers();
+                bar_chart.strings = new ArrayList<String>();
+                bar_chart.floats = new ArrayList<Float>();
                 return true;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -169,7 +169,18 @@
         android:text="Add Event"
         android:layout_alignTop="@+id/button6"
         android:layout_alignLeft="@+id/numberPicker2"
-        android:layout_alignStart="@+id/numberPicker2" /><![CDATA[
+        android:layout_alignStart="@+id/numberPicker2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Stolen bikes per year:"
+        android:id="@+id/textView6"
+        android:textSize="30dp"
+        android:visibility="invisible"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" /><![CDATA[
         //android:layout_centerHorizontal="true"
 
 

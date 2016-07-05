@@ -58,12 +58,17 @@ public class pie_chart extends AppCompatActivity {
         mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                //if (e == null)
-                //    return;
-                //Toast.makeText(pie_chart.this,
-                //        xData1.get(e.getXIndex()) + " = " + ((int) e.getVal()),
-                //        //xData[e.getXIndex()] + " = "  + e.getVal() + "%",
-                 //       Toast.LENGTH_SHORT) .show();
+                if (e == null){
+                    return;
+                }
+                   else{
+                    Toast.makeText(pie_chart.this,
+                            xData1.get(e.getXIndex()) + " = " + ((int) e.getVal()),
+                            //xData[e.getXIndex()] + " = "  + e.getVal() + "%",
+                            Toast.LENGTH_SHORT) .show();
+
+                }
+
             }
 
             @Override
@@ -114,8 +119,6 @@ public class pie_chart extends AppCompatActivity {
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(10f);
         data.setValueTextColor(Color.GRAY);
-        pie_chart.xData1 = new ArrayList<String>();
-        pie_chart.yData1 = new ArrayList<Float>();
 
         mChart.setData(data);
         mChart.highlightValue(null);
