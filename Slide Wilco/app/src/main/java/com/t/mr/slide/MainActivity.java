@@ -167,14 +167,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             " AND (Begindatum < '" + np2.getValue() + "-12-31 00:00:00.000') GROUP BY DATEPART(YEAR, Begindatum), DATEPART(MONTH, Begindatum)";
                     Query_2 quer = new Query_2();
                     ResultSet res = quer.getQueryResult(SQL);
-                        try {
-                        while(res.next()) {
-                            line_chart.floats.add((float)res.getInt("counter"));
-                            line_chart.strings.add("");
-                        }
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
+                    IOptionVisitor visitor = new ConcreteVisitor();
+                    IOption vis = new Some();
+                vis.Visit(visitor,res,line_chart.strings,line_chart.floats,"");
+
                 Intent intent = new Intent(MainActivity.this, line_chart.class);
                 startActivity(intent);
             }
@@ -185,14 +181,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String SQL = "SELECT TOP(5) Deelgem,COUNT(*) as counter FROM fietstrommel GROUP BY Deelgem ORDER BY COUNT(*) DESC" ;
                 Query_2 quer = new Query_2();
                 ResultSet res = quer.getQueryResult(SQL);
-                try {
-                    while(res.next()) {
-                        bar_chart.floats.add((float)res.getInt("counter"));
-                        bar_chart.strings.add(res.getString("Deelgem"));
+                ConcreteIterator iterat = new ConcreteIterator();
+                try{
+                    while(res.next()){
+                        if(iterat.HasNext()){
+                            iterat.MoveNext(bar_chart.strings,bar_chart.floats,res.getString("Deelgem"),res.getFloat("counter"));
+                        }
                     }
                 }catch(Exception e){
-                    e.printStackTrace();
+                   e.printStackTrace();
                 }
+
+
                 Intent intent = new Intent(MainActivity.this, bar_chart.class);
                 startActivity(intent);
             }
@@ -207,13 +207,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 ResultSet res2 = quer.getQueryResult(SQL2);
                 try {while(res.next()) {
                         bar_chart.floats.add((float)res.getInt("counter"));
-                        bar_chart.strings.add("Trommels");}
+                        bar_chart.strings.add(spinner.getSelectedItem() + "");}
                 }catch(Exception e){
                     e.printStackTrace();}
                 try {
                     while (res2.next()){
                         bar_chart.floats.add((float)res2.getInt("counter"));
-                        bar_chart.strings.add("Diefstallen");
+                        bar_chart.strings.add(spinner.getSelectedItem() + "");
                     }}catch(Exception e){
                     e.printStackTrace();}
                 Intent intent = new Intent(MainActivity.this, bar_chart.class);

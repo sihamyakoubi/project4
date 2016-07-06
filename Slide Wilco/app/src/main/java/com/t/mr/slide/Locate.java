@@ -119,6 +119,7 @@ public class Locate {
                         bw.close();
                     }catch(Exception e){
                         e.printStackTrace();}}}}}
+
     public static void deleteLocation(){
         String youFilePath = Environment.getExternalStorageDirectory().toString()+"/location.txt";
         try{

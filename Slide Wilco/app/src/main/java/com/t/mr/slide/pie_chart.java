@@ -21,7 +21,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.sql.Array;
 import java.util.ArrayList;
 
-public class pie_chart extends AppCompatActivity {
+public class pie_chart extends AppCompatActivity implements Charts {
 
     private RelativeLayout drawer_layout;
     private PieChart mChart;
@@ -34,7 +34,7 @@ public class pie_chart extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_chart);
         drawer_layout = (RelativeLayout) findViewById(R.id.drawer_layout);

@@ -27,7 +27,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-public class line_chart extends AppCompatActivity {
+public class line_chart extends AppCompatActivity implements Charts {
 
     private RelativeLayout drawer_layout;
     private LineChart mChart;
@@ -35,7 +35,7 @@ public class line_chart extends AppCompatActivity {
     public static ArrayList<String> strings = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_line_chart2);
         drawer_layout = (RelativeLayout) findViewById(R.id.drawer_layout);
