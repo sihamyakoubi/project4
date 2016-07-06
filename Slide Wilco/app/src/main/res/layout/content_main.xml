@@ -160,7 +160,7 @@
         android:clickable="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/imageButton" />
+        android:layout_alignBottom="@+id/button3" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -183,7 +183,15 @@
         android:visibility="invisible"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:textColor="#5f5f5f" /><![CDATA[
+        android:textColor="#5f5f5f" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Location"
+        android:id="@+id/button8"
+        android:layout_below="@+id/button3"
+        android:layout_centerHorizontal="true" /><![CDATA[
         //android:layout_centerHorizontal="true"
 
 

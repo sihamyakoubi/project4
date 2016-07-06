@@ -27,6 +27,8 @@ import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Spinner spinner;
     public static Button buttonLocation1;
     public static Button buttonLocation2;
+    public static Button buttonLocationget;
     private Location mLastLocation;
     com.google.android.gms.common.api.GoogleApiClient mGoogleApiClient;
     public LocationManager mLocationManager;
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.buttonLocation1 = (Button) findViewById(R.id.button6);
         this.buttonLocation2 = (Button) findViewById(R.id.button7);
         this.imageButton = (ImageButton) findViewById(R.id.imageButton);
+        this.buttonLocationget = (Button) findViewById(R.id.button8);
         np2.setMaxValue(2013); np2.setMinValue(2010); np2.setValue(2010);
         String SQL = "Select DISTINCT fietsdiefstal.Buurt, fietstrommel.Deelgem as buur FROM fietstrommel, fietsdiefstal WHERE fietstrommel.Deelgem = fietsdiefstal.Buurt";
         Query_2 querry = new Query_2();
@@ -244,6 +248,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Locate.saveLocation(Locate.result);
             }
         });
+        buttonLocationget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = Locate.readLocation();
+                if (str != ""){
+                    Toast.makeText(MainActivity.this,str,Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(MainActivity.this,"No location saved!",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
         buttonLocation2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -338,6 +355,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonBar1.setVisibility(View.INVISIBLE);
                 buttonBar2.setVisibility(View.INVISIBLE);
                 spinner.setVisibility(View.INVISIBLE);
+                buttonLocationget.setVisibility(View.INVISIBLE);
                 nav_view.closeDrawers();
                 return true;
             case R.id.nav_pie_chart:
@@ -357,6 +375,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonLocation2.setVisibility(View.INVISIBLE);
                 webView.setVisibility(View.INVISIBLE);
                 nav_view.closeDrawers();
+                buttonLocationget.setVisibility(View.INVISIBLE);
                 pie_chart.xData1 = new ArrayList<String>();
                 pie_chart.yData1 = new ArrayList<Float>();
                 return true;
@@ -370,6 +389,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 textBar1.setVisibility(View.INVISIBLE);
                 textBar2.setVisibility(View.INVISIBLE);
                 buttonBar1.setVisibility(View.INVISIBLE);
+                buttonLocationget.setVisibility(View.INVISIBLE);
                 buttonBar2.setVisibility(View.INVISIBLE);
                 button.setVisibility(View.INVISIBLE);
                 button2.setVisibility(View.INVISIBLE);
@@ -388,6 +408,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonBar1.setVisibility(View.VISIBLE);
                 buttonBar2.setVisibility(View.VISIBLE);
                 spinner.setVisibility(View.VISIBLE);
+                buttonLocationget.setVisibility(View.INVISIBLE);
                 button.setVisibility(View.INVISIBLE);
                 button2.setVisibility(View.INVISIBLE);
                 textView.setVisibility(View.INVISIBLE);
