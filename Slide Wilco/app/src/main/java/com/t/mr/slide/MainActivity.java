@@ -126,6 +126,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pie_chart.xData1.clear();
+                    pie_chart.yData1.clear();
                 String SQL = "SELECT TOP (5) Merk, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Merk ORDER BY COUNT(*) DESC;";
                 Query_2 quer = new Query_2();
                 ResultSet res = quer.getQueryResult(SQL);
@@ -163,7 +165,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         buttonLine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    String SQL = "SELECT  COUNT(*) as counter FROM fietsdiefstal WHERE (Begindatum > '" + np2.getValue() + "-01-01 00:00:00.000')" +
+                line_chart.strings.clear();
+                        line_chart.floats.clear();
+                String SQL = "SELECT  COUNT(*) as counter FROM fietsdiefstal WHERE (Begindatum > '" + np2.getValue() + "-01-01 00:00:00.000')" +
                             " AND (Begindatum < '" + np2.getValue() + "-12-31 00:00:00.000') GROUP BY DATEPART(YEAR, Begindatum), DATEPART(MONTH, Begindatum)";
                     Query_2 quer = new Query_2();
                     ResultSet res = quer.getQueryResult(SQL);
@@ -178,6 +182,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         buttonBar1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bar_chart.strings.clear();
+                        bar_chart.floats.clear();
                 String SQL = "SELECT TOP(5) Deelgem,COUNT(*) as counter FROM fietstrommel GROUP BY Deelgem ORDER BY COUNT(*) DESC" ;
                 Query_2 quer = new Query_2();
                 ResultSet res = quer.getQueryResult(SQL);
@@ -200,6 +206,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         buttonBar2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bar_chart.floats.clear();
+                    bar_chart.strings.clear();
                 String SQL = "SELECT Deelgem,COUNT(*) as counter FROM fietstrommel WHERE Deelgem = '" + spinner.getSelectedItem() + "' GROUP BY Deelgem";
                 Query_2 quer = new Query_2();
                 ResultSet res = quer.getQueryResult(SQL);
