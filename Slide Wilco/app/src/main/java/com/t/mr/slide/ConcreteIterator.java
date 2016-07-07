@@ -7,6 +7,8 @@ import java.util.ArrayList;
 /**
  * Created by Wilco on 5-7-2016.
  */
+
+//iterator
 public class ConcreteIterator implements Iterator {
 
 

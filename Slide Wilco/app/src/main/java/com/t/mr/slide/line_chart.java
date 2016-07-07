@@ -28,12 +28,12 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 
 public class line_chart extends AppCompatActivity implements Charts {
-
+    //lists for strings and floats from resultsets
     private RelativeLayout drawer_layout;
     private LineChart mChart;
     public static ArrayList<Float> floats = new ArrayList<>();
     public static ArrayList<String> strings = new ArrayList<>();
-
+    //creating the chart and a new screen to put it on
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +42,7 @@ public class line_chart extends AppCompatActivity implements Charts {
 
         mChart = new LineChart(this);
         drawer_layout.addView(mChart);
+        //Sets the size of the chart
         ViewGroup.LayoutParams params = mChart.getLayoutParams();
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -89,7 +90,7 @@ public class line_chart extends AppCompatActivity implements Charts {
         dataset.setColor(Color.RED); //
         dataset.setDrawCubic(true);
         dataset.setDrawFilled(false);
-
+        //Animates the chart
         mChart.setData(data);
         mChart.animateX(5000);
         return;

@@ -23,13 +23,12 @@ import java.util.ArrayList;
 
 public class bar_chart extends AppCompatActivity implements Charts {
 
-
     protected RelativeLayout drawer_layout;
     private BarChart mChart;
-
+    //lists for strings and floats from resultsets
     public static ArrayList<Float> floats = new ArrayList<>();
     public static ArrayList<String> strings = new ArrayList<>();
-
+    //creating the chart and a new screen to put it on
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +37,7 @@ public class bar_chart extends AppCompatActivity implements Charts {
 
         mChart = new BarChart(this);
         drawer_layout.addView(mChart);
+        //Sets the size of the chart
         ViewGroup.LayoutParams params = mChart.getLayoutParams();
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -65,9 +65,8 @@ public class bar_chart extends AppCompatActivity implements Charts {
             public void onNothingSelected() {
             }
         });
-
+        //Creates the legend for this chart
         BarDataSet dataset = new BarDataSet(entries, "BLUE = Bicycle containers , RED = Stolen bicycle");
-
         ArrayList<String> labels = new ArrayList<>();
         for(String o : strings){
             labels.add(o);
@@ -80,8 +79,7 @@ public class bar_chart extends AppCompatActivity implements Charts {
         colors.add(Color.BLUE);
         colors.add(Color.RED);
         dataset.setColors(colors);
-
-
+        //Animates the chart
         mChart.animateY(5000);
 
 

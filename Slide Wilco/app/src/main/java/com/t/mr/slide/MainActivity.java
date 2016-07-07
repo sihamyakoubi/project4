@@ -41,6 +41,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+
+    //make buttons, textviews, webview and dropdown menu
     public static Button button;
     public static Button button2;
     public static TextView textView;
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.imageButton = (ImageButton) findViewById(R.id.imageButton);
         this.buttonLocationget = (Button) findViewById(R.id.button8);
         np2.setMaxValue(2013); np2.setMinValue(2010); np2.setValue(2010);
+
         String SQL = "Select DISTINCT fietsdiefstal.Buurt, fietstrommel.Deelgem as buur FROM fietstrommel, fietsdiefstal WHERE fietstrommel.Deelgem = fietsdiefstal.Buurt";
         Query_2 querry = new Query_2();
         ResultSet res = querry.getQueryResult(SQL);
@@ -171,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 line_chart.strings.clear();
                         line_chart.floats.clear();
+                //onclick -> execute String SQL and make a linechart, using a visitor
                 String SQL = "SELECT  COUNT(*) as counter FROM fietsdiefstal WHERE (Begindatum > '" + np2.getValue() + "-01-01 00:00:00.000')" +
                             " AND (Begindatum < '" + np2.getValue() + "-12-31 00:00:00.000') GROUP BY DATEPART(YEAR, Begindatum), DATEPART(MONTH, Begindatum)";
                     Query_2 quer = new Query_2();
@@ -187,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 bar_chart.strings.clear();
+                //onclick -> execute String SQL and make a barchart, using an iterator
                         bar_chart.floats.clear();
                 String SQL = "SELECT TOP(5) Deelgem,COUNT(*) as counter FROM fietstrommel GROUP BY Deelgem ORDER BY COUNT(*) DESC" ;
                 Query_2 quer = new Query_2();
@@ -268,6 +273,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+    //Makes the appointment
     public void onAddEventClicked(View view){
         Intent intent = new Intent(Intent.ACTION_INSERT);
         intent.setType("vnd.android.cursor.item/event");
@@ -339,7 +345,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView textView1 = (TextView) findViewById(R.id.textView);
         DrawerLayout nav_view = (DrawerLayout) findViewById(R.id.drawer_layout);
         switch (menuItem.getItemId()) {
+
             // Handle navigation view item clicks here.
+
+            //Draws the Main menu
             case R.id.nav_bar_main:
                 webView.setVisibility(View.VISIBLE);
                 buttonLocation1.setVisibility(View.VISIBLE);
@@ -358,6 +367,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonLocationget.setVisibility(View.VISIBLE);
                 nav_view.closeDrawers();
                 return true;
+            //Draws the Pie chart
             case R.id.nav_pie_chart:
                 button.setVisibility(View.VISIBLE);
                 button2.setVisibility(View.VISIBLE);
@@ -379,6 +389,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 pie_chart.xData1 = new ArrayList<String>();
                 pie_chart.yData1 = new ArrayList<Float>();
                 return true;
+            //Draws the Line chart
             case R.id.nav_line_chart:
                 menuItem.setChecked(true);
                 textViewLine2.setVisibility(View.VISIBLE);
@@ -402,6 +413,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 line_chart.strings = new ArrayList<String>();
                 line_chart.floats = new ArrayList<Float>();
                 return true;
+            //Draws the Bar chart
             case R.id.nav_bar_chart:
                 textBar1.setVisibility(View.VISIBLE);
                 textBar2.setVisibility(View.VISIBLE);

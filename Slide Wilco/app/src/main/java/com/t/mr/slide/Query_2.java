@@ -12,15 +12,15 @@ import net.sourceforge.jtds.jdbc.*;
  * Created by tareq on 30-6-2016.
  */
 public class Query_2 extends AppCompatActivity {
-
         public ResultSet getQueryResult(String SQL){
+            //connection to microsoft azure
             String connectionString = "jdbc:jtds:sqlserver://project4.database.windows.net/project4;user=wilco;password=123project!;";
             ResultSet result = null;
             try {
-
                 Class.forName("net.sourceforge.jtds.jdbc.Driver").newInstance();
                 Connection DbConn = DriverManager.getConnection(connectionString);
                 Statement stmt = DbConn.createStatement();
+                //execute SQL query
                 result = stmt.executeQuery(SQL);
                 String x = "";
                 ResultSet resu = result;
@@ -29,6 +29,7 @@ public class Query_2 extends AppCompatActivity {
             catch (Exception e) {
                 e.printStackTrace();
             }
+            //return SQL query answer
             return result;
         }
     }
