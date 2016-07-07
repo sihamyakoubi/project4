@@ -16,13 +16,15 @@ import java.sql.Statement;
  */
 public class Query {
     public static ResultSet getQueryResult(String SQL){
-            String connectionString = "jdbc:jtds:sqlserver://project4.database.windows.net/project4;user=wilco;password=123project!;";
+        //connection to microsoft azure    
+        String connectionString = "jdbc:jtds:sqlserver://project4.database.windows.net/project4;user=wilco;password=123project!;";
             ResultSet result = null;
             try {
 
                 Class.forName("net.sourceforge.jtds.jdbc.Driver");
                 Connection DbConn = DriverManager.getConnection(connectionString);
                 Statement stmt = DbConn.createStatement();
+                //execute SQL query.
                 result = stmt.executeQuery(SQL);
                 String x = "";
                 ResultSet resu = result;
@@ -31,6 +33,7 @@ public class Query {
             catch (Exception e) {
                 e.printStackTrace();
             }
+            //return SQL query answer
             return result;
         }
 }

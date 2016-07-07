@@ -24,8 +24,10 @@ import org.jfree.data.xy.XYSeriesCollection;
  * @author Wilco
  */
 public class line_chart implements Charts{
+    //lists for strings and floats from resultsets
     public static ArrayList<String> strings = new ArrayList<>();
     public static ArrayList<Float> floats = new ArrayList<>();
+    //creating the chart and a new screen to put it on.
     public void onCreate(){
         XYSeriesCollection data = new XYSeriesCollection();
         int x = -1;

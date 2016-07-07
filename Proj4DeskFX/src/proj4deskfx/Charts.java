@@ -9,6 +9,7 @@ package proj4deskfx;
  *
  * @author Wilco
  */
+//interface for making charts.
 public interface Charts {
     void onCreate();
 }

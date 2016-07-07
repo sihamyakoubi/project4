@@ -9,6 +9,8 @@ import java.util.ArrayList;
  *
  * @author Wilco
  */
+
+//interface for iterator
 public interface Iterator {
     void GetCurrent();
     boolean HasNext();

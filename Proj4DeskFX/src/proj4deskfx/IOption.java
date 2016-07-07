@@ -12,6 +12,8 @@ import java.util.ArrayList;
  *
  * @author Wilco
  */
+
+//interface IOption for visitor
 public interface IOption {
     void Visit(IOptionVisitor visitor, ResultSet rs, ArrayList<String> strings, ArrayList<Float> floats, String tag);
 }

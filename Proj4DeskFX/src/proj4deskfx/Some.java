@@ -12,6 +12,8 @@ import java.util.ArrayList;
  *
  * @author Wilco
  */
+
+//some class for visitor
 public class Some implements IOption{
     public void Visit(IOptionVisitor visitor, ResultSet rs, ArrayList<String> strings, ArrayList<Float> floats, String tag){
         visitor.onSome(rs,strings,floats,tag);

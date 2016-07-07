@@ -2,6 +2,7 @@ package proj4deskfx;
 import java.awt.Color;
 import java.util.ArrayList;
 
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -20,8 +21,10 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * @author Wilco
  */
 public class bar_chart implements Charts{
+    //lists for strings and floats from resultsets
     public static ArrayList<String> strings = new ArrayList<>();
     public static ArrayList<Float> floats = new ArrayList<>();
+    //creating the chart and a new screen to put it on.
     public void onCreate() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         int x = -1;
@@ -30,7 +33,7 @@ public class bar_chart implements Charts{
             dataset.setValue(f, strings.get(x) , strings.get(x));
         }
         x = -1;
-        //dataset.setValue(value4,"Marks", "Fietstrommel");
+       
         
         
         JFreeChart chart = ChartFactory.createBarChart("Vergelijking", "", "Hoeveelheid gestolen fietsen", dataset, PlotOrientation.VERTICAL,false,true,false);

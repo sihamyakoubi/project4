@@ -9,6 +9,8 @@ import java.util.ArrayList;
  *
  * @author Wilco
  */
+
+//iterator
 public class ConcreteIterator implements Iterator {
 
 

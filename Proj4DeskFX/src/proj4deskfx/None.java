@@ -12,6 +12,8 @@ import java.util.ArrayList;
  *
  * @author Wilco
  */
+
+//none class for visitor.
 public class None implements IOption {
     public void Visit(IOptionVisitor visitor, ResultSet rs, ArrayList<String> strings, ArrayList<Float> floats, String tag){
         visitor.onNone();

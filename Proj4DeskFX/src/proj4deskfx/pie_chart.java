@@ -18,8 +18,10 @@ import org.jfree.data.general.DefaultPieDataset;
  * @author Wilco
  */
 public class pie_chart implements Charts{
+    //lists for strings and floats from resultsets
     public static ArrayList<String> strings = new ArrayList<>();
     public static ArrayList<Float> floats = new ArrayList<>();
+    //creating the chart and a new screen to put it on.
     public void onCreate(){
         DefaultPieDataset pieDataset = new  DefaultPieDataset();
         int x = -1;

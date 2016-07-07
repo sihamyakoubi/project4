@@ -12,6 +12,8 @@ import java.util.ArrayList;
  *
  * @author Wilco
  */
+
+//IOptionVisitor interface
 public interface IOptionVisitor {
     void onSome(ResultSet rs, ArrayList<String> strings, ArrayList<Float> floats, String tag);
     void onNone();

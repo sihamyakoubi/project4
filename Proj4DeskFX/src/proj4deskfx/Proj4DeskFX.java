@@ -25,6 +25,7 @@ public class Proj4DeskFX extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        //make buttons, texts and comboboxes.
         Button mainmenu = new Button("Main Menu");
         Button barchart = new Button("Bar chart");
         Button linechart = new Button("Line chart");
@@ -48,7 +49,8 @@ public class Proj4DeskFX extends Application {
             @Override
             public void handle(ActionEvent event) {
                 line_chart.floats.clear();
-        line_chart.strings.clear();
+        //onclick -> execute String SQL and make a linechart, using a visitor
+                line_chart.strings.clear();
         String SQL = "SELECT  COUNT(*) as counter FROM fietsdiefstal WHERE (Begindatum > '" + co2.getValue() + "-01-01 00:00:00.000')" +
                             " AND (Begindatum < '" + co2.getValue() + "-12-31 00:00:00.000') GROUP BY DATEPART(YEAR, Begindatum), DATEPART(MONTH, Begindatum)";
                  
@@ -66,6 +68,7 @@ public class Proj4DeskFX extends Application {
             
             @Override
             public void handle(ActionEvent event) {
+                //onclick -> execute String SQL and make a barchart, using an iterator
                 bar_chart.floats.clear();
         bar_chart.strings.clear();
         String SQL = "SELECT TOP(5) Deelgem,COUNT(*) as counter FROM fietstrommel GROUP BY Deelgem ORDER BY COUNT(*) DESC";
@@ -89,6 +92,7 @@ public class Proj4DeskFX extends Application {
             
             @Override
             public void handle(ActionEvent event) {
+                //onclick -> execute String SQL and make a barchart
                 bar_chart.floats.clear();
         bar_chart.strings.clear();
         String SQL = "SELECT Deelgem,COUNT(*) as counter FROM fietstrommel WHERE Deelgem = '" + co1.getValue() + "' GROUP BY Deelgem";
@@ -122,6 +126,7 @@ public class Proj4DeskFX extends Application {
             
             @Override
             public void handle(ActionEvent event) {
+                //onclick -> execute String SQL and make a piechart
                 pie_chart.floats.clear();
                 pie_chart.strings.clear();
                 String SQL = "SELECT TOP (5) Kleur, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Kleur ORDER BY COUNT(*) DESC;";
@@ -144,6 +149,7 @@ public class Proj4DeskFX extends Application {
             
             @Override
             public void handle(ActionEvent event) {
+                //onclick -> execute String SQL and make a piechart
                 pie_chart.floats.clear();
         pie_chart.strings.clear();
         String SQL = "SELECT TOP (5) Merk, COUNT(*) as counter FROM [dbo].[fietsdiefstal] GROUP BY Merk ORDER BY COUNT(*) DESC;";
@@ -165,6 +171,7 @@ public class Proj4DeskFX extends Application {
             
             @Override
             public void handle(ActionEvent event) {
+                //onclick -> change visibility of buttons to true (piechart buttons) and others to false
                 piechart1.setVisible(true); piechart2.setVisible(true);
         barchart1.setVisible(false); barchart2.setVisible(false);
         barcha1.setVisible(false); barcha2.setVisible(false);co1.setVisible(false);
@@ -175,6 +182,7 @@ public class Proj4DeskFX extends Application {
             
             @Override
             public void handle(ActionEvent event) {
+                    //onclick -> change visibility of all buttons to false, for main menu.
                 piechart1.setVisible(false); piechart2.setVisible(false);
         barchart1.setVisible(false); barchart2.setVisible(false);
         barcha1.setVisible(false); barcha2.setVisible(false);co1.setVisible(false);
@@ -185,6 +193,7 @@ public class Proj4DeskFX extends Application {
             
             @Override
             public void handle(ActionEvent event) {
+                //onclick -> change visibility of buttons to true (barchart buttons) and others to false 
                 piechart1.setVisible(false); piechart2.setVisible(false);
         barchart1.setVisible(true); barchart2.setVisible(true);
         barcha1.setVisible(true); barcha2.setVisible(true);co1.setVisible(true);
@@ -195,6 +204,7 @@ public class Proj4DeskFX extends Application {
             
             @Override
             public void handle(ActionEvent event) {
+                //onclick -> change visibility of buttons to true (linechart buttons) and others to false
                 piechart1.setVisible(false); piechart2.setVisible(false);
         barchart1.setVisible(false); barchart2.setVisible(false);
         barcha1.setVisible(false); barcha2.setVisible(false);co1.setVisible(false);
@@ -202,6 +212,7 @@ public class Proj4DeskFX extends Application {
             }
         });
         
+        //changing position of all buttons to where they belong
         StackPane root = new StackPane();
         mainmenu.setTranslateX(-125);
         mainmenu.setTranslateY(-145);
@@ -230,7 +241,7 @@ public class Proj4DeskFX extends Application {
         co2.setTranslateX(0);
         co2.setTranslateY(-125);
         
-        
+        //adding buttons to root and changing their visiblity
         piechart1.setVisible(false); piechart2.setVisible(false);
         barchart1.setVisible(false); barchart2.setVisible(false);
         barcha1.setVisible(false); barcha2.setVisible(false); co1.setVisible(false);

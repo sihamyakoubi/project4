@@ -12,6 +12,8 @@ import java.util.ArrayList;
  *
  * @author Wilco
  */
+
+//visitor
 public class ConcreteVisitor implements IOptionVisitor{
     public void onSome(ResultSet rs, ArrayList<String> strings, ArrayList<Float> floats, String tag){
         try{
