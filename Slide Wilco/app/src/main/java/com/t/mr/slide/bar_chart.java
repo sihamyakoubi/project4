@@ -66,7 +66,7 @@ public class bar_chart extends AppCompatActivity implements Charts {
             }
         });
 
-        BarDataSet dataset = new BarDataSet(entries, "Bar Chart");
+        BarDataSet dataset = new BarDataSet(entries, "BLUE = Bicycle containers , RED = Stolen bicycle");
 
         ArrayList<String> labels = new ArrayList<>();
         for(String o : strings){

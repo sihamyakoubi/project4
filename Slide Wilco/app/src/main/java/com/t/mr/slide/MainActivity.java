@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startTime);
         intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,endTime);
         intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
-        intent.putExtra(CalendarContract.Events.TITLE, "Gestolen fiets");
+        intent.putExtra(CalendarContract.Events.TITLE, "Pick up bike");
         intent.putExtra(CalendarContract.Events.DESCRIPTION,  "Description");
         intent.putExtra(CalendarContract.Events.EVENT_LOCATION, "My location");
         intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
@@ -355,7 +355,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 buttonBar1.setVisibility(View.INVISIBLE);
                 buttonBar2.setVisibility(View.INVISIBLE);
                 spinner.setVisibility(View.INVISIBLE);
-                buttonLocationget.setVisibility(View.INVISIBLE);
+                buttonLocationget.setVisibility(View.VISIBLE);
                 nav_view.closeDrawers();
                 return true;
             case R.id.nav_pie_chart:

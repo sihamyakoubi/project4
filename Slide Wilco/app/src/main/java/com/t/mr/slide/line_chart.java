@@ -86,14 +86,12 @@ public class line_chart extends AppCompatActivity implements Charts {
 
         LineData data = new LineData(labels, dataset);
 
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
+        dataset.setColor(Color.RED); //
         dataset.setDrawCubic(true);
         dataset.setDrawFilled(false);
 
         mChart.setData(data);
-        //mChart.animateY(5000);
-        mChart.animateY(5000);
-
+        mChart.animateX(5000);
         return;
     }
 }
