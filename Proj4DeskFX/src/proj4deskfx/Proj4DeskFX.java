@@ -53,16 +53,11 @@ public class Proj4DeskFX extends Application {
                             " AND (Begindatum < '" + co2.getValue() + "-12-31 00:00:00.000') GROUP BY DATEPART(YEAR, Begindatum), DATEPART(MONTH, Begindatum)";
                  
         ResultSet rs = Query.getQueryResult(SQL);
-        try{
-            while (rs.next()){
-                line_chart.floats.add(rs.getFloat("counter"));
-                line_chart.strings.add("");
-            }    
-        }   
-        catch(Exception e){
-        e.printStackTrace();
-        }
-        line_chart.onCreate(co2);
+        IOptionVisitor visitor = new ConcreteVisitor();
+        IOption vis = new Some();
+        vis.Visit(visitor,rs,line_chart.strings,line_chart.floats,"");
+        line_chart line = new line_chart();
+        line.onCreate();
             }
         });
         
@@ -75,16 +70,18 @@ public class Proj4DeskFX extends Application {
         bar_chart.strings.clear();
         String SQL = "SELECT TOP(5) Deelgem,COUNT(*) as counter FROM fietstrommel GROUP BY Deelgem ORDER BY COUNT(*) DESC";
         ResultSet rs = Query.getQueryResult(SQL);
-        try{
-            while (rs.next()){
-                bar_chart.floats.add(rs.getFloat("counter"));
-                bar_chart.strings.add(rs.getString("Deelgem"));
-            }    
-        }   
-        catch(Exception e){
-        e.printStackTrace();
-        }
-        bar_chart.onCreate();
+        ConcreteIterator iterat = new ConcreteIterator();
+                try{
+                    while(rs.next()){
+                        if(iterat.HasNext()){
+                            iterat.MoveNext(bar_chart.strings,bar_chart.floats,rs.getString("Deelgem"),rs.getFloat("counter"));
+                        }
+                    }
+                }catch(Exception e){
+                   e.printStackTrace();
+                }
+        bar_chart bar = new bar_chart();
+        bar.onCreate();
             }
         });
         
@@ -116,7 +113,8 @@ public class Proj4DeskFX extends Application {
         catch(Exception e){
         e.printStackTrace();
         }
-        bar_chart.onCreate();
+        bar_chart bar = new bar_chart();
+        bar.onCreate();
             }
         });
         
@@ -137,7 +135,8 @@ public class Proj4DeskFX extends Application {
                     catch(Exception e){
                     e.printStackTrace();
                 }
-                    pie_chart.onCreate();
+                pie_chart pie = new pie_chart();    
+                pie.onCreate();
             
             }
         });
@@ -158,7 +157,8 @@ public class Proj4DeskFX extends Application {
         catch(Exception e){
         e.printStackTrace();
         }
-        pie_chart.onCreate();
+        pie_chart pie = new pie_chart();
+        pie.onCreate();
             }
         });
         piechart.setOnAction(new EventHandler<ActionEvent>() {
@@ -252,7 +252,7 @@ public class Proj4DeskFX extends Application {
         
         Scene scene = new Scene(root, 350, 350);
         
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Stolen bikes & bikecontainers");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

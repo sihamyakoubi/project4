@@ -19,10 +19,10 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *
  * @author Wilco
  */
-public class bar_chart {
+public class bar_chart implements Charts{
     public static ArrayList<String> strings = new ArrayList<>();
     public static ArrayList<Float> floats = new ArrayList<>();
-    public static void onCreate(){
+    public void onCreate() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         int x = -1;
         for(float f : floats){

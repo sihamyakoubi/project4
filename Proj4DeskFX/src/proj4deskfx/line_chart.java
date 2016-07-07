@@ -23,10 +23,10 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Wilco
  */
-public class line_chart {
+public class line_chart implements Charts{
     public static ArrayList<String> strings = new ArrayList<>();
     public static ArrayList<Float> floats = new ArrayList<>();
-    public static void onCreate(ComboBox jComboBox2){
+    public void onCreate(){
         XYSeriesCollection data = new XYSeriesCollection();
         int x = -1;
         XYSeries dataset = new XYSeries("First");

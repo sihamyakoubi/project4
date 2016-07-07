@@ -17,10 +17,10 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  * @author Wilco
  */
-public class pie_chart {
+public class pie_chart implements Charts{
     public static ArrayList<String> strings = new ArrayList<>();
     public static ArrayList<Float> floats = new ArrayList<>();
-    public static void onCreate(){
+    public void onCreate(){
         DefaultPieDataset pieDataset = new  DefaultPieDataset();
         int x = -1;
         for (float f : floats){
